@@ -6,23 +6,30 @@ from inventory_report.reports.complete_report import CompleteReport
 
 
 def read(path):
-    with open(path) as file:
-        if path.endswith(".csv"):
+    if path.endswith(".csv"):
+        with open(path) as file:
             data = csv.DictReader(file)
             return [row for row in data]
-        elif path.endswith(".json"):
+    elif path.endswith(".json"):
+        with open(path) as file:
             data = file.read()
             return json.loads(data)
-        elif path.endswith(".xml"):
-            data = []
-        with open(path) as inventory_xml:
-            xml_root = Et.parse(inventory_xml).getroot()
+    elif path.endswith(".xml"):
+        return read_xml(path)
+    else:
+        raise ValueError("Formato de arquivo não suportado.")
+
+
+def read_xml(path):
+    data = []
+    with open(path) as file:
+        xml_root = Et.parse(file).getroot()
         for record in xml_root.findall(".//record"):
             produto_dict = {}
             for tag in record:
                 produto_dict[tag.tag] = tag.text
             data.append(produto_dict)
-        return data
+    return data
 
 
 class Inventory:
