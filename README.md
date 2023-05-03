@@ -104,7 +104,7 @@ git push origin sua-feature-ou-correcao
 
 ## Referências
 
- - [Trybe](https://www.betrybe.com/) - [Flask](https://flask.palletsprojects.com/en/2.2.x/)
+ - [Trybe](https://www.betrybe.com/)
 
 ## Tecnologias e Ferramentas
 
